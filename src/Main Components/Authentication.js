@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
@@ -6,9 +6,17 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import SignUp from "../Nested Components/SignUp";
 import SignIn from "../Nested Components/SignIn";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../Utils/AuthAtApp";
 
 const Authentication = () => {
   const [selectBtn, setSelectBtn] = useState(true);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user) navigate(-1);
+  }, []);
+
   const selectedBtn = {
     width: 150,
     height: 50,

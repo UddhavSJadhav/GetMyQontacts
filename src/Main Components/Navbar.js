@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,9 +9,17 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import { UserContext } from "../Utils/AuthAtApp";
+import { Button } from "@mui/material";
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const { user, setUser } = useContext(UserContext);
+
+  const signOut = () => {
+    localStorage.removeItem("userToken");
+    setUser();
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,35 +46,53 @@ const Navbar = () => {
               to='/'
               onClick={handleCloseNavMenu}
               style={{
-                margin: "0 4px 0 4px",
+                margin: "0 20px 0 20px",
                 color: "white",
                 display: "block",
                 textDecoration: "none",
+                alignSelf: "center",
               }}>
               Quick Search
             </Link>
-            <Link
-              to='/authentication'
-              onClick={handleCloseNavMenu}
-              style={{
-                margin: "0 4px 0 4px",
-                color: "white",
-                textDecoration: "none",
-                display: "block",
-              }}>
-              My Contacts
-            </Link>
-            <Link
-              to='/auth'
-              onClick={handleCloseNavMenu}
-              style={{
-                margin: "0 4px 0 4px",
-                color: "white",
-                textDecoration: "none",
-                display: "block",
-              }}>
-              Logout
-            </Link>
+            {user && (
+              <Link
+                to='/contacts'
+                onClick={handleCloseNavMenu}
+                style={{
+                  margin: "0 20px 0 20px",
+                  color: "white",
+                  textDecoration: "none",
+                  display: "block",
+                  alignSelf: "center",
+                }}>
+                My Contacts
+              </Link>
+            )}
+            {user ? (
+              <Button
+                onClick={signOut}
+                style={{
+                  margin: "0 20px 0 20px",
+                  color: "white",
+                  textDecoration: "none",
+                  display: "block",
+                }}>
+                Sign Out
+              </Button>
+            ) : (
+              <Link
+                to='/auth'
+                onClick={handleCloseNavMenu}
+                style={{
+                  margin: "0 20px 0 20px",
+                  color: "white",
+                  textDecoration: "none",
+                  display: "block",
+                  alignSelf: "center",
+                }}>
+                Sign Up
+              </Link>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
@@ -107,31 +133,46 @@ const Navbar = () => {
                   Quick Search
                 </Link>
               </MenuItem>
+              {user && (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link
+                    to='/contacts'
+                    onClick={handleCloseNavMenu}
+                    style={{
+                      margin: "0 4px 0 4px",
+                      textDecoration: "none",
+                      display: "block",
+                      color: "#2196f3",
+                    }}>
+                    My Contacts
+                  </Link>
+                </MenuItem>
+              )}
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link
-                  to='/'
-                  onClick={handleCloseNavMenu}
-                  style={{
-                    margin: "0 4px 0 4px",
-                    textDecoration: "none",
-                    display: "block",
-                    color: "#2196f3",
-                  }}>
-                  My Contacts
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link
-                  to='/auth'
-                  onClick={handleCloseNavMenu}
-                  style={{
-                    margin: "0 4px 0 4px",
-                    textDecoration: "none",
-                    display: "block",
-                    color: "#2196f3",
-                  }}>
-                  Logout
-                </Link>
+                {user ? (
+                  <div
+                    onClick={signOut}
+                    style={{
+                      margin: "0 4px 0 4px",
+                      color: "#2196f3",
+                      textDecoration: "none",
+                      display: "block",
+                    }}>
+                    Sign Out
+                  </div>
+                ) : (
+                  <Link
+                    to='/auth'
+                    onClick={handleCloseNavMenu}
+                    style={{
+                      margin: "0 4px 0 4px",
+                      textDecoration: "none",
+                      display: "block",
+                      color: "#2196f3",
+                    }}>
+                    Sign Up
+                  </Link>
+                )}
               </MenuItem>
             </Menu>
           </Box>
