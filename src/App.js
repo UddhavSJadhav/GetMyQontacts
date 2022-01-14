@@ -6,10 +6,17 @@ import Contacts from "./Main Components/Contacts";
 import Navbar from "./Main Components/Navbar";
 import QuickSearch from "./Main Components/QuickSearch";
 import { UserContext } from "./Utils/AuthAtApp";
+import { DeleteModalContext, EditModalContext } from "./Utils/ModalContext";
 import axios from "axios";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [deleteModal, setDeleteModal] = useState({ data: "", deleted: {} });
+  const [editModal, setEditModal] = useState({
+    data: "",
+    newData: "",
+    updated: {},
+  });
   useEffect(() => {
     async function getUser() {
       const localToken = localStorage.getItem("userToken");
@@ -31,12 +38,16 @@ function App() {
     <div>
       <Router>
         <UserContext.Provider value={{ user, setUser }}>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<QuickSearch />} exact />
-            <Route path='/auth' element={<Authentication />} exact />
-            <Route path='/contacts' element={<Contacts />} exact />
-          </Routes>
+          <DeleteModalContext.Provider value={{ deleteModal, setDeleteModal }}>
+            <EditModalContext.Provider value={{ editModal, setEditModal }}>
+              <Navbar />
+              <Routes>
+                <Route path='/' element={<QuickSearch />} exact />
+                <Route path='/auth' element={<Authentication />} exact />
+                <Route path='/contacts' element={<Contacts />} exact />
+              </Routes>
+            </EditModalContext.Provider>
+          </DeleteModalContext.Provider>
         </UserContext.Provider>
       </Router>
     </div>
