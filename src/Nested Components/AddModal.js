@@ -25,7 +25,8 @@ const AddModal = (props) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    maxWidth: 400,
+    width: "100%",
     bgcolor: "#99e4ee",
     border: "2px solid #03a9f4",
     p: 4,
@@ -40,7 +41,7 @@ const AddModal = (props) => {
       token: user.token,
     };
     axios
-      .post("http://localhost:5000/contacts/postcontact", newContact)
+      .post("https://gmqapi.herokuapp.com/contacts/postcontact", newContact)
       .then((res) => {
         setContacts([
           {

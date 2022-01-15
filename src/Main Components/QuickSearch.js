@@ -24,7 +24,10 @@ const QuickSearch = () => {
       contact_name: data.get("contact_name"),
     };
     axios
-      .post("http://localhost:5000/contacts/getquickcontact", getQuickContact)
+      .post(
+        "https://gmqapi.herokuapp.com/contacts/getquickcontact",
+        getQuickContact
+      )
       .then((res) => {
         setContact(res.data.contact);
         setErrors({});

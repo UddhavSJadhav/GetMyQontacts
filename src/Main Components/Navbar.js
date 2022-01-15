@@ -11,14 +11,17 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Utils/AuthAtApp";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const signOut = () => {
     localStorage.removeItem("userToken");
     setUser();
+    navigate("/", { replace: true });
   };
 
   const handleOpenNavMenu = (event) => {

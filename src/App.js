@@ -22,7 +22,7 @@ function App() {
       const localToken = localStorage.getItem("userToken");
       if (!localToken) return;
       await axios
-        .post("http://localhost:5000/authentication/checktoken", {
+        .post("https://gmqapi.herokuapp.com/authentication/checktoken", {
           token: localToken,
         })
         .then((res) => {

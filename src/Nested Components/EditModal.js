@@ -25,7 +25,8 @@ const EditModal = (props) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    maxWidth: 400,
+    width: "100%",
     bgcolor: "#99e4ee",
     border: "2px solid #03a9f4",
     p: 4,
@@ -42,7 +43,10 @@ const EditModal = (props) => {
       token: user.token,
     };
     axios
-      .post("http://localhost:5000/contacts/updatecontact", editedContact)
+      .post(
+        "https://gmqapi.herokuapp.com/contacts/updatecontact",
+        editedContact
+      )
       .then((res) => {
         setErrors({});
         setEditModal({

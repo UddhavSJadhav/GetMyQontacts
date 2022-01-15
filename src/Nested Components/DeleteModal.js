@@ -16,7 +16,7 @@ const DeleteModal = (props) => {
   };
   const handleDelete = () => {
     axios
-      .post("http://localhost:5000/contacts/deletecontact", {
+      .post("https://gmqapi.herokuapp.com/contacts/deletecontact", {
         contact: deleteModal.data,
         token: user.token,
       })

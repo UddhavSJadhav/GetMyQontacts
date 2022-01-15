@@ -21,7 +21,9 @@ const Contacts = () => {
   useEffect(() => {
     if (!user) return navigate(-1);
     axios
-      .post("http://localhost:5000/contacts/getcontacts", { token: user.token })
+      .post("https://gmqapi.herokuapp.com/contacts/getcontacts", {
+        token: user.token,
+      })
       .then((res) => {
         setContacts(res.data.contacts);
       })
@@ -30,38 +32,47 @@ const Contacts = () => {
       });
   }, []);
   return (
-    <Container sx={{ mt: 3 }}>
-      <CssBaseline />
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {contacts.map((contact) => {
-            i++;
-            return <SingleContact data={contact} key={i} />;
-          })}
-        </Grid>
-        <DeleteModal deleteModalProp={{ deleteModal, setDeleteModal, user }} />
-        <EditModal editModalProp={{ editModal, setEditModal, user }} />
-        <AddModal
-          addModalProp={{
-            user,
-            addNewContact,
-            setAddNewContact,
-            contacts,
-            setContacts,
-          }}
-        />
-        <Fab
-          color='primary'
-          aria-label='add'
-          sx={{
-            position: "absolute",
-            bottom: 16,
-            right: 16,
-          }}>
-          <AddIcon onClick={() => setAddNewContact(!addNewContact)} />
-        </Fab>
-      </Box>
-    </Container>
+    <div>
+      <Container sx={{ mt: 3 }}>
+        <CssBaseline />
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            {contacts ? (
+              contacts.map((contact) => {
+                i++;
+                return <SingleContact data={contact} key={i} />;
+              })
+            ) : (
+              <h4>No Contact Found</h4>
+            )}
+          </Grid>
+
+          <DeleteModal
+            deleteModalProp={{ deleteModal, setDeleteModal, user }}
+          />
+          <EditModal editModalProp={{ editModal, setEditModal, user }} />
+          <AddModal
+            addModalProp={{
+              user,
+              addNewContact,
+              setAddNewContact,
+              contacts,
+              setContacts,
+            }}
+          />
+        </Box>
+      </Container>
+      <Fab
+        color='primary'
+        aria-label='add'
+        sx={{
+          position: "fixed",
+          bottom: 116,
+          right: 16,
+        }}>
+        <AddIcon onClick={() => setAddNewContact(!addNewContact)} />
+      </Fab>
+    </div>
   );
 };
 

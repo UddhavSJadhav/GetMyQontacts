@@ -55,7 +55,7 @@ export default function SignUp() {
       confirmpassword: values.confirmpassword,
     };
     axios
-      .post("http://localhost:5000/authentication/signup", signupData)
+      .post("https://gmqapi.herokuapp.com/authentication/signup", signupData)
       .then((res) => {
         setUser(res.data);
         setErrors({});

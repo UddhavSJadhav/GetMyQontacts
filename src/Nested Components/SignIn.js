@@ -23,7 +23,7 @@ export default function SignIn() {
       password: data.get("password"),
     };
     axios
-      .post("http://localhost:5000/authentication/signin", loginData)
+      .post("https://gmqapi.herokuapp.com/authentication/signin", loginData)
       .then((res) => {
         setUser(res.data);
         setErrors({});
