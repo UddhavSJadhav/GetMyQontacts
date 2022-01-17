@@ -44,11 +44,11 @@ const AddModal = (props) => {
       .post("https://gmqapi.herokuapp.com/contacts/postcontact", newContact)
       .then((res) => {
         setContacts([
+          ...contacts,
           {
             contact_name: data.get("contact_name"),
             mobile_number: data.get("mobile_number"),
           },
-          ...contacts,
         ]);
         setErrors({});
         setAddNewContact(false);
