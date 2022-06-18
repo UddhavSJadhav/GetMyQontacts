@@ -2,6 +2,11 @@
 
 This is a simple web application to get your contacts if you loose your phone.
 
+Frameworks:
+Front-End: React Js, Material UI
+Back-End: Node Js, Express Js, Firebase
+Database: Firebase
+
 Link--- https://getmyqontacts.web.app/
 
 ![Quick Search with Username](/images/GMQ1.png)
