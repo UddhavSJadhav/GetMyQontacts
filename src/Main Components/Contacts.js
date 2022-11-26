@@ -9,6 +9,7 @@ import { UserContext } from "../Utils/AuthAtApp";
 import { DeleteModalContext, EditModalContext } from "../Utils/ModalContext";
 import AddIcon from "@mui/icons-material/Add";
 import AddModal from "../Nested Components/AddModal";
+import { API } from "../API.js";
 
 const Contacts = () => {
   let i = 0;
@@ -21,7 +22,7 @@ const Contacts = () => {
   useEffect(() => {
     if (!user) return navigate(-1);
     axios
-      .post("https://gmqapi.herokuapp.com/contacts/getcontacts", {
+      .post(`${API}/contacts/getcontacts`, {
         token: user.token,
       })
       .then((res) => {

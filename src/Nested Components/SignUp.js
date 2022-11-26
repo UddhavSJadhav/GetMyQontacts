@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { UserContext } from "../Utils/AuthAtApp";
+import { API } from "../API.js";
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ export default function SignUp() {
       confirmpassword: values.confirmpassword,
     };
     axios
-      .post("https://gmqapi.herokuapp.com/authentication/signup", signupData)
+      .post(`${API}/authentication/signup`, signupData)
       .then((res) => {
         setUser(res.data);
         setErrors({});

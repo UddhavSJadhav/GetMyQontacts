@@ -7,9 +7,12 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { UserContext } from "../Utils/AuthAtApp";
+import ResetPasswordModel from "./ResetPasswordModal";
+import { API } from "../API.js";
 
 export default function SignIn() {
   const [loading, setLoading] = useState(false);
+  const [resetPassword, setResetPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -23,7 +26,7 @@ export default function SignIn() {
       password: data.get("password"),
     };
     axios
-      .post("https://gmqapi.herokuapp.com/authentication/signin", loginData)
+      .post(`${API}/authentication/signin`, loginData)
       .then((res) => {
         setUser(res.data);
         setErrors({});
@@ -71,10 +74,13 @@ export default function SignIn() {
         Sign In
       </Button>
       <Grid sx={{ textAlign: "center" }}>
-        <Link href='#' variant='body2'>
+        <Link href='#' onClick={() => setResetPassword(true)} variant='body2'>
           Forgot password?
         </Link>
       </Grid>
+      <ResetPasswordModel
+        ResetPasswordProp={{ resetPassword, setResetPassword }}
+      />
     </Box>
   );
 }

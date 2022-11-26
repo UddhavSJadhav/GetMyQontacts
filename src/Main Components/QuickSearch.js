@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
+import { API } from "../API.js";
 
 const QuickSearch = () => {
   const [loading, setLoading] = useState(false);
@@ -24,10 +25,7 @@ const QuickSearch = () => {
       contact_name: data.get("contact_name"),
     };
     axios
-      .post(
-        "https://gmqapi.herokuapp.com/contacts/getquickcontact",
-        getQuickContact
-      )
+      .post(`${API}/contacts/getquickcontact`, getQuickContact)
       .then((res) => {
         setContact(res.data.contact);
         setErrors({});
@@ -82,7 +80,7 @@ const QuickSearch = () => {
             variant='contained'
             disabled={loading}
             sx={{ mt: 3, mb: 2 }}>
-            Search
+            {loading ? "Searching" : "Search"}
           </Button>
         </Box>
         <CardContent

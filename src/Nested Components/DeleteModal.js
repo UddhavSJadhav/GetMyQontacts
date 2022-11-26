@@ -1,6 +1,7 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
 import axios from "axios";
 import React from "react";
+import { API } from "../API.js";
 
 const DeleteModal = (props) => {
   const { deleteModal, setDeleteModal, user } = props.deleteModalProp;
@@ -16,7 +17,7 @@ const DeleteModal = (props) => {
   };
   const handleDelete = () => {
     axios
-      .post("https://gmqapi.herokuapp.com/contacts/deletecontact", {
+      .post(`${API}/contacts/deletecontact`, {
         contact: deleteModal.data,
         token: user.token,
       })

@@ -1,6 +1,7 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { API } from "../API.js";
 
 const EditModal = (props) => {
   const [loading, setLoading] = useState(false);
@@ -43,10 +44,7 @@ const EditModal = (props) => {
       token: user.token,
     };
     axios
-      .post(
-        "https://gmqapi.herokuapp.com/contacts/updatecontact",
-        editedContact
-      )
+      .post(`${API}/contacts/updatecontact`, editedContact)
       .then((res) => {
         setErrors({});
         setEditModal({

@@ -1,6 +1,7 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
+import { API } from "../API.js";
 
 const AddModal = (props) => {
   const {
@@ -41,7 +42,7 @@ const AddModal = (props) => {
       token: user.token,
     };
     axios
-      .post("https://gmqapi.herokuapp.com/contacts/postcontact", newContact)
+      .post(`${API}/contacts/postcontact`, newContact)
       .then((res) => {
         setContacts([
           ...contacts,
@@ -52,6 +53,10 @@ const AddModal = (props) => {
         ]);
         setErrors({});
         setAddNewContact(false);
+        setValues({
+          contact_name: "",
+          mobile_number: "",
+        });
       })
       .catch((err) => {
         setErrors(err.response.data);
